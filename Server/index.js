@@ -1,4 +1,3 @@
-
 import express, { response } from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -19,14 +18,16 @@ app.use(morgan())
 app.use(helmet({
     crossOriginResourcePolicy : false
 }))
-
+const PORT = 8080 || process.env.PORT 
 app.get("/",(request,response)=>{
     response.json({
         message : "Server is running at PORT : " + PORT
     })
 })
-connectDB();
-const PORT = 8080 || process.env.PORT 
-app.listen(PORT, () =>{
-    console.log("Server is running ",PORT);
+connectDB()
+connectDB().then(()=>{
+    app.listen(PORT,()=>{
+        console.log("Server is running",PORT)
+    })
 })
+
